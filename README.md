@@ -5,8 +5,17 @@
 
 App templates from rapidmvp. Check out the project's [documentation](http://luckyadogun.github.io/apitemplate/).
 
-# Prerequisites
+# Features:
+Just clone it, add your features, deploy
 
+- JWT/Social Authentication
+- Deployment ready (Heroku)
+- CORS handling
+- Bring Your Config
+
+
+# Prerequisites
+- [Heroku](https://dashboard.heroku.com)
 - [Docker](https://docs.docker.com/docker-for-mac/install/)  
 
 # Local Development
