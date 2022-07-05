@@ -6,4 +6,10 @@ from .models import User
 @admin.register(User)
 class UserAdmin(UserAdmin):
     ordering = ("email",)
-    list_display = ("id", "email", "is_active", "is_staff", "date_joined",)
+    list_display = (
+        "id",
+        "email",
+        "is_active",
+        "is_staff",
+        "date_joined",
+    )

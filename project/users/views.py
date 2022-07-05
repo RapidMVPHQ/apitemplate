@@ -1,27 +1,22 @@
-from rest_framework import viewsets, mixins
-from rest_framework.permissions import AllowAny
-from .models import User
-from .permissions import IsUserOrReadOnly
-from .serializers import CreateUserSerializer, UserSerializer
+import requests as http_requests
+from rest_framework.response import Response
+from rest_framework.generics import CreateAPIView
 
 
-class UserViewSet(
-    mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet
-):
-    """
-    Updates and retrieves user accounts
-    """
+class ActivateUserEmail(CreateAPIView):
+    permission_classes = []
+    permission_classes = []
 
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = (IsUserOrReadOnly,)
+    def post(self, request, *args, **kwargs):
+        uid = request.data.get("uid")
+        token = request.data.get("token")
+        response = None
 
+        protocol = "https://" if request.is_secure() else "http://"
+        hosts = request.get_host()
+        post_url = f"{protocol}{hosts}/auth/users/activation/"
+        payload = dict(uid=uid, token=token)
+        res = http_requests.post(post_url, data=payload)
 
-class UserCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    """
-    Creates user accounts
-    """
-
-    queryset = User.objects.all()
-    serializer_class = CreateUserSerializer
-    permission_classes = (AllowAny,)
+        response = dict(detail="success") if res.status_code < 300 else res.json()
+        return Response(response)
