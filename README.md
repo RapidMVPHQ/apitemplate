@@ -23,8 +23,8 @@ docker-compose run --rm web [command]
 ```
 
 # Production Environment (Heroku optimized)
+- Heroku Config Vars
 ```bash
-Heroku Config Vars
 DATABASE_URL: ***
 DJANGO_AWS_ACCESS_KEY_ID: ***
 DJANGO_AWS_REGION: ***
@@ -34,4 +34,26 @@ DJANGO_DEBUG: ***
 DJANGO_SECRET_KEY: ***
 DJANGO_SUPERUSER_EMAIL: ***
 DJANGO_SUPERUSER_PASSWORD: ***
+```
+- Heroku Deploy Commands:
+* Login:
+```bash
+heroku container:login
+```
+* Build the image:
+If you're on Mac ARM (M1):
+```bash
+docker buildx -t registry.heroku.com/<app_name>/web .
+```
+* Non-Mac M1/ARM Machine:
+```bash
+docker build -t registry.heroku.com/<app_name>/web .
+```
+* Push to the registry:
+```bash
+docker push registry.heroku.com/<app_name>/web
+```
+* Release the image:
+```bash
+heroku container:release -a <app_name> web
 ```
