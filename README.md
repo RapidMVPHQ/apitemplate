@@ -41,12 +41,10 @@ DJANGO_SUPERUSER_PASSWORD: ***
 heroku container:login
 ```
 - Build the image:
-If you're on Mac ARM (M1):
 ```bash
+# Apple Mac/ARM (M1):
 docker buildx -t registry.heroku.com/<app_name>/web .
-```
-- Non-Mac M1/ARM Machine:
-```bash
+# Non-M1 Machines:
 docker build -t registry.heroku.com/<app_name>/web .
 ```
 - Push to the registry:
