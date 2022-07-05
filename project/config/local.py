@@ -5,6 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class Local(Common):
     DEBUG = True
+    DOMAIN = "127.0.0.1:3000"
 
     # Testing
     INSTALLED_APPS = Common.INSTALLED_APPS

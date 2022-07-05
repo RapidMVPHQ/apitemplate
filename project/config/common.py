@@ -1,8 +1,13 @@
 import os
 from os.path import join
 from distutils.util import strtobool
+from datetime import timedelta
 import dj_database_url
 from configurations import Configuration
+from corsheaders.defaults import default_headers
+
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -22,6 +27,8 @@ class Common(Configuration):
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
 
+        'djoser',
+
         # Your apps
         'project.users',
 
@@ -30,6 +37,8 @@ class Common(Configuration):
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
     MIDDLEWARE = (
         'django.middleware.security.SecurityMiddleware',
+        'corsheaders.middleware.CorsPostCsrfMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
@@ -197,5 +206,38 @@ class Common(Configuration):
         'DEFAULT_AUTHENTICATION_CLASSES': (
             'rest_framework.authentication.SessionAuthentication',
             'rest_framework.authentication.TokenAuthentication',
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
         )
     }
+
+    SIMPLE_JWT = {
+        "AUTH_HEADER_TYPES": ("JWT",),
+        "BLACKLIST_AFTER_ROTATION": False,
+        "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+        "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
+    }
+
+    # Djoser
+    DJOSER = {
+        "PASSWORD_RESET_CONFIRM_URL": "#/password/reset/confirm/{uid}/{token}",
+        "USERNAME_RESET_CONFIRM_URL": "#/username/reset/confirm/{uid}/{token}",
+        "ACTIVATION_URL": "activate/{uid}/{token}",
+        "SEND_ACTIVATION_EMAIL": True,
+        "LOGIN_FIELD": "email",
+        # "SERIALIZERS": {},
+    }    
+
+    # Custom Settings
+    SITE_NAME = "Your Site"
+
+    # CORS Header
+    CORS_ALLOW_CREDENTIALS = True
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:3000/",
+        "http://127.0.0.1:3000/",
+        "https://yoursite.com/",
+        "https://yourside.herokuapp.com",
+    ]
+    CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
+    CORS_ALLOW_HEADERS = list(default_headers)
+    
