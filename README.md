@@ -23,3 +23,15 @@ docker-compose run --rm web [command]
 ```
 
 # Production Environment (Heroku optimized)
+```bash
+Heroku Config Vars
+DATABASE_URL: ***
+DJANGO_AWS_ACCESS_KEY_ID: ***
+DJANGO_AWS_REGION: ***
+DJANGO_AWS_SECRET_ACCESS_KEY: ***
+DJANGO_AWS_STORAGE_BUCKET_NAME: ***
+DJANGO_DEBUG: ***
+DJANGO_SECRET_KEY: ***
+DJANGO_SUPERUSER_EMAIL: ***
+DJANGO_SUPERUSER_PASSWORD: ***
+```
