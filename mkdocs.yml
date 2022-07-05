@@ -1,0 +1,12 @@
+site_name: project
+site_description: App templates from rapidmvp
+repo_url: https://github.com/luckyadogun/apitemplate
+site_dir: site
+copyright: Copyright &copy; 2020, <a href="https://github.com/luckyadogun">luckyadogun</a>.
+dev_addr: 0.0.0.0:8001
+
+nav:
+  - Home: 'index.md'
+  - API:
+    - Authentication: 'api/authentication.md'
+    - Users: 'api/users.md'
